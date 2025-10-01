@@ -2213,10 +2213,28 @@
 				width: 100%;
 			}
 
-		.zoom-portrait img {
-			transform: scale(1.4);
-			transform-origin: center;
-		}
+		.image.zoom-portrait {
+  /* pick any size; width = height */
+  width: 200px;
+  aspect-ratio: 1 / 1;        /* guarantees a square */
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+
+  /* prevent template rules from squeezing it */
+  max-width: none;
+  float: none;
+  flex: 0 0 auto;
+}
+
+/* Fill the circle cleanly */
+.image.zoom-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* crop to the circle nicely */
+  border-radius: 0;            /* circle is controlled by the parent */
+  transform: scale(1.4);             /* remove zoom; keep if you want tighter crop */
+}
 
 /* List */
 
@@ -2892,10 +2910,10 @@
 			background-color: transparent;
 		}
 
-			#header.alt h1 {
+			/* #header.alt h1 {
 				opacity: 0;
 				visibility: hidden;
-			}
+			} */
 
 		@media screen and (max-width: 736px) {
 
@@ -2949,6 +2967,10 @@
 				}
 
 		}
+body.home #header.alt h1 {
+  display: none;
+}
+
 
 /* Menu */
 
@@ -4094,3 +4116,92 @@
   background: none;
 }
 
+/* 2-column layout for the Fun Facts area */
+.facts-split {
+  display: grid;
+  grid-template-columns: minmax(320px, 520px) 1fr; /* left = tidy table width */
+  gap: 55px;
+  align-items: start;
+}
+
+/* Keep the table left-aligned and tidy */
+.profile-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+.profile-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.profile-table tr:last-child td { border-bottom: 0; }
+.profile-table td:first-child {
+  font-weight: 700;
+  /* text-align: right; */
+  white-space: nowrap;
+  padding-right: 12px;
+}
+/* .profile-table td:last-child { text-align: left; } */
+
+/* Image styling */
+.facts-photo {
+  margin: 0; /* reset figure margins */
+}
+.facts-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  object-fit: cover;
+  /* Optional: keep a pleasant shape even if the photo is huge */
+  aspect-ratio: 4 / 3;
+}
+
+/* Stack on smaller screens */
+@media (max-width: 900px) {
+  .facts-split {
+    grid-template-columns: 1fr;
+	gap: 8px;
+  }
+  .facts-photo {
+    max-width: 520px;
+    margin: 0 auto; /* center image when stacked */
+	.content .table-wrapper { margin-bottom: 0; }
+  }
+}
+
+/* Make the section's inner container wider */
+#two.wrapper.spotlight .inner {
+  /* override the theme's fixed width */
+  width: min(1600px, calc(100% - 4rem)) !important;
+  margin: 0 auto;
+
+  /* 2-column layout: fixed circle + flexible text */
+  display: grid;
+  grid-template-columns: 600px minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Remove template’s internal caps */
+#two.spotlight .content { max-width: none !important; min-width: 0; }
+#two.spotlight .image   { width: auto !important; max-width: none !important; }
+
+/* Big circular portrait */
+#two .image.zoom-portrait {
+  width: 600px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+  display: inline-block;
+  margin-top: 150px;
+}
+#two .image.zoom-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.4);
+}
+
+/* Mobile stack */
+@media (max-width: 980px) {
+  #two.wrapper.spotlight .inner {
+    width: calc(100% - 2rem) !important;
+    grid-template-columns: 1fr;
+  }
+  #two .image.zoom-portrait { width: 280px; justify-self: center; margin-bottom: 1rem; }
+}

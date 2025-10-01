@@ -10,7 +10,7 @@ Personal website for **Jack Qin** — projects, experience, blog, and ways to ge
 
 Major sections:
 
-- Home and ABout
+- Home and About
 - Fun
 - Career
 - Projects
