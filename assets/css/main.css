@@ -2774,6 +2774,8 @@
 				.features article .image img {
 					border-radius: 5px 5px 0 0;
 					width: 100%;
+					aspect-ratio: 16 / 9;
+					object-fit: cover;
 				}
 
 		@media screen and (max-width: 980px) {
@@ -4138,7 +4140,7 @@ body.home #header.alt h1 {
 
 /* Image styling */
 .facts-photo {
-  margin: 0; /* reset figure margins */
+  margin: 15px; /* reset figure margins */
 }
 .facts-photo img {
   width: 100%;
